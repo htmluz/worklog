@@ -1,8 +1,12 @@
 #### fluxos
 nova window trackeada: cria *Task* + *Window*, chama window.Start()
+
 nova window filha: cria *Window*, adiciona a *Task* existente, chama window.Start()
+
 navega pra outra window: window.Pause() na antiga, window.Resume() na nova(se trackeada)
+
 fecha window: window.Close(), task.RemoveWindow(), se ultima -> task.Close()
+
 Status: calcula window.Duration() do interval ativo, da pra add quantia de interval dps
 
 
