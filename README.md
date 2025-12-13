@@ -1,7 +1,7 @@
 #### fluxos
-nova window trackeada: cria *Task* + *Window*, chama window.Start()
+nova window trackeada: cria **Task** + **Window**, chama window.Start()
 
-nova window filha: cria *Window*, adiciona a *Task* existente, chama window.Start()
+nova window filha: cria **Window**, adiciona a **Task** existente, chama window.Start()
 
 navega pra outra window: window.Pause() na antiga, window.Resume() na nova(se trackeada)
 
@@ -20,5 +20,7 @@ WORKDIR=~/.worklog
 - [ ] Fluxos
 
 tenho que pensar no service la dps que fiz to confuso referente ao fluxo que vai ser dos nomes do tmux
+
 pensar se vai ser ao abrir pq quando abrir sempre vai ser msm nome tlgd, se eu gerar um id random como diabos eu vou saber que é a mesma
+
 muitas duvidas...
