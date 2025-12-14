@@ -17,7 +17,7 @@ func NewWorklogService(s storage.Storage) *WorklogService {
 	return &WorklogService{storage: s}
 }
 
-func (ws *WorklogService) Start(windowName string) error {
+func (ws *WorklogService) Start(windowID string) error {
 	store, err := ws.storage.Load()
 	if err != nil {
 		return err
@@ -27,23 +27,23 @@ func (ws *WorklogService) Start(windowName string) error {
 
 	task := &domain.Task{
 		ID:        taskID,
-		Name:      windowName,
+		Name:      windowID,
 		CreatedAt: time.Now(),
 	}
-	task.AddWindow(windowName)
+	task.AddWindow(windowID)
 
 	window := &domain.Window{
-		ID: windowName,
+		ID: windowID,
 	}
 	window.Start()
 
 	store.Tasks[taskID] = task
-	store.Windows[windowName] = window
+	store.Windows[windowID] = window
 
 	return ws.persist(store)
 }
 
-func (ws *WorklogService) Child(parentTaskID, windowName string) error {
+func (ws *WorklogService) Child(parentTaskID, windowID string) error {
 	store, err := ws.storage.Load()
 	if err != nil {
 		return err
@@ -55,39 +55,39 @@ func (ws *WorklogService) Child(parentTaskID, windowName string) error {
 	}
 
 	window := &domain.Window{
-		ID: windowName,
+		ID: windowID,
 	}
 	window.Start()
 
-	task.AddWindow(windowName)
-	store.Windows[windowName] = window
+	task.AddWindow(windowID)
+	store.Windows[windowID] = window
 
 	return ws.persist(store)
 }
 
-func (ws *WorklogService) Pause(taskID, windowName string) error {
+func (ws *WorklogService) Pause(taskID, windowID string) error {
 	store, err := ws.storage.Load()
 	if err != nil {
 		return err
 	}
 
-	win, ok := store.Windows[windowName]
+	win, ok := store.Windows[windowID]
 	if !ok {
-		return fmt.Errorf("Window %s nao encontrada", windowName)
+		return fmt.Errorf("Window %s nao encontrada", windowID)
 	}
 	win.Pause()
 	return ws.persist(store)
 }
 
-func (ws *WorklogService) Resume(windowName string) error {
+func (ws *WorklogService) Resume(windowID string) error {
 	store, err := ws.storage.Load()
 	if err != nil {
 		return err
 	}
 
-	win, ok := store.Windows[windowName]
+	win, ok := store.Windows[windowID]
 	if !ok {
-		return fmt.Errorf("Window %s nao encontrada", windowName)
+		return fmt.Errorf("Window %s nao encontrada", windowID)
 	}
 	win.Resume()
 	return ws.persist(store)
@@ -107,14 +107,14 @@ func (ws *WorklogService) Switch(fromName, toName string) error {
 	return ws.persist(store)
 }
 
-func (ws *WorklogService) Stop(taskID, windowName string) error {
+func (ws *WorklogService) Stop(taskID, windowID string) error {
 	store, err := ws.storage.Load()
 	if err != nil {
 		return err
 	}
-	win, ok := store.Windows[windowName]
+	win, ok := store.Windows[windowID]
 	if !ok {
-		return fmt.Errorf("window %s nao encontrada", windowName)
+		return fmt.Errorf("window %s nao encontrada", windowID)
 	}
 	win.Close()
 
@@ -123,8 +123,8 @@ func (ws *WorklogService) Stop(taskID, windowName string) error {
 		return fmt.Errorf("task %s nao encontrada", taskID)
 	}
 	for _, wname := range task.WindowIDs {
-		if wname == windowName {
-			z := task.RemoveWindow(windowName)
+		if wname == windowID {
+			z := task.RemoveWindow(windowID)
 			if z {
 				task.Close()
 			}
