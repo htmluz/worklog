@@ -43,9 +43,6 @@ func (s *JSONStorage) Load() (*domain.Store, error) {
 	if store.Tasks == nil {
 		store.Tasks = make(map[string]*domain.Task)
 	}
-	if store.Windows == nil {
-		store.Windows = make(map[string]*domain.Window)
-	}
 
 	return &store, nil
 }

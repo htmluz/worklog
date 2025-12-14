@@ -2,7 +2,9 @@ package domain
 
 // https://open.spotify.com/track/23QyE9GQpXsX9WgEDADMa6?si=ee235d6879104a99
 
-import "time"
+import (
+	"time"
+)
 
 type Window struct {
 	ID        string     `json:"id"`
@@ -35,9 +37,6 @@ func (w *Window) Pause() {
 }
 
 func (w *Window) Resume() {
-	if w.isActive() {
-		return
-	}
 	w.Intervals = append(w.Intervals, Interval{Start: time.Now()})
 }
 

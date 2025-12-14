@@ -19,8 +19,9 @@ WORKDIR=~/.worklog
 - [ ] CLI
 - [ ] Fluxos
 
-tenho que pensar no service la dps que fiz to confuso referente ao fluxo que vai ser dos nomes do tmux
 
-pensar se vai ser ao abrir pq quando abrir sempre vai ser msm nome tlgd, se eu gerar um id random como diabos eu vou saber que é a mesma
+## My little pain in the ass with jira hours
 
-muitas duvidas...
+i dont remember shit ive done and have to create my tasks and put the hours in there so im doing this to hook it up with my tmux with the faith it will save me.
+
+This is all done following the best practices ever like DRY(DO repeat yourself) and [XGH](https://gohorse.com.br/extreme-go-horse-xgh.html)

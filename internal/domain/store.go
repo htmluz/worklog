@@ -5,14 +5,12 @@ package domain
 import "time"
 
 type Store struct {
-	Tasks   map[string]*Task   `json:"tasks"`
-	Windows map[string]*Window `json:"windows"`
+	Tasks map[string]*Task `json:"tasks"`
 }
 
 func NewStore() *Store {
 	return &Store{
-		Tasks:   make(map[string]*Task),
-		Windows: make(map[string]*Window),
+		Tasks: make(map[string]*Task),
 	}
 }
 
@@ -23,10 +21,8 @@ func (s *Store) GetTaskDuration(taskID string) time.Duration {
 	}
 
 	var total time.Duration
-	for _, winID := range task.WindowIDs {
-		if win, ok := s.Windows[winID]; ok {
-			total += win.Duration()
-		}
+	for _, wdw := range task.Windows {
+		total += wdw.Duration()
 	}
 	return total
 }

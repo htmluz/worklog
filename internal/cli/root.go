@@ -8,5 +8,10 @@ func NewRootCmd() *cobra.Command {
 		Short: ":3",
 	}
 	cmd.AddCommand(newStartCmd())
+	cmd.AddCommand(newStopCmd())
+	cmd.AddCommand(newChildCmd())
+	cmd.AddCommand(newPauseCmd())
+	cmd.AddCommand(newResumeCmd())
+
 	return cmd
 }
